@@ -1,5 +1,6 @@
 package com.qsi.config;
 
+import com.qsi.output.DashboardSocketHandler;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.socket.config.annotation.*;
 
