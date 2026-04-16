@@ -9,10 +9,26 @@ export default function ChartPanel({ data }) {
         <CartesianGrid strokeDasharray="3 3" />
         <XAxis dataKey="time" />
         <YAxis />
-        <Tooltip />
+        <Tooltip
+          contentStyle={{ backgroundColor: "#1e293b", border: "none" }}
+        />
 
-        <Line type="monotone" dataKey="latency" stroke="#ff4d4f" />
-        <Line type="monotone" dataKey="qps" stroke="#1890ff" />
+        <Line
+          type="monotone"
+          dataKey="latency"
+          stroke="#f43f5e"
+          strokeWidth={3}
+          dot={false}
+          isAnimationActive={true}
+        />
+
+        <Line
+          type="monotone"
+          dataKey="qps"
+          stroke="#38bdf8"
+          strokeWidth={2}
+          dot={false}
+        />
       </LineChart>
     </div>
   );

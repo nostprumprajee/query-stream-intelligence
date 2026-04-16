@@ -1,50 +1,32 @@
-import { useEffect, useState } from "react";
-import ChartPanel from "./components/ChartPanel";
-import MetricsCard from "./components/MetricsCard";
-import AlertPanel from "./components/AlertPanel";
-import TopQueryTable from "./components/TopQueryTable";
+import Dashboard from "./pages/Dashboard";
+import QueryDetail from "./pages/QueryDetail";
+import { useState } from "react";
 
 function App() {
-  const [data, setData] = useState([]);
-  const [latest, setLatest] = useState({});
-
-  useEffect(() => {
-    const ws = new WebSocket("ws://localhost:8080/ws");
-
-    ws.onmessage = (event) => {
-      const msg = JSON.parse(event.data);
-
-      setLatest(msg);
-
-      setData((prev) => [
-        ...prev.slice(-30),
-        {
-          time: new Date().toLocaleTimeString(),
-          latency: msg.latency,
-          qps: msg.qps
-        }
-      ]);
-    };
-  }, []);
+  const [selectedQuery, setSelectedQuery] = useState(null);
 
   return (
-    <div style={{ padding: 20, fontFamily: "Arial" }}>
-      <h2>🔥 Query Insight Dashboard</h2>
+    <div style={{ display: "flex", height: "100vh" }}>
 
-      {/* Metrics */}
-      <div style={{ display: "flex", gap: 20 }}>
-        <MetricsCard title="QPS" value={latest.qps} />
-        <MetricsCard title="Latency (ms)" value={latest.latency} />
+      {/* Sidebar */}
+      <div style={{
+        width: 220,
+        background: "#020617",
+        color: "white",
+        padding: 20
+      }}>
+        <h2>⚡ QSI</h2>
+        <p>Dashboard</p>
       </div>
 
-      {/* Chart */}
-      <ChartPanel data={data} />
+      {/* Main */}
+      <div style={{ flex: 1, background: "#0f172a", color: "white", padding: 20 }}>
+        {selectedQuery
+          ? <QueryDetail query={selectedQuery} onBack={() => setSelectedQuery(null)} />
+          : <Dashboard onSelectQuery={setSelectedQuery} />
+        }
+      </div>
 
-      {/* Alert */}
-      <AlertPanel data={latest} />
-
-      {/* Top Queries */}
-      <TopQueryTable data={latest.topQueries || []} />
     </div>
   );
 }

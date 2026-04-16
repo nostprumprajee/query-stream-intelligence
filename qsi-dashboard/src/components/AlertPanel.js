@@ -5,9 +5,11 @@ export default function AlertPanel({ data }) {
     <div style={{
       marginTop: 20,
       padding: 20,
-      background: "#fff1f0",
-      border: "1px solid red",
-      borderRadius: 10
+      borderRadius: 16,
+      background: "linear-gradient(135deg, #7f1d1d, #dc2626)",
+      position: "sticky",
+      top: 10,
+      zIndex: 10
     }}>
       <h3>🚨 Alert</h3>
       <p>{data.alert}</p>

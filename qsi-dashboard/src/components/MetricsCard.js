@@ -1,13 +1,15 @@
-export default function MetricsCard({ title, value }) {
+export default function MetricsCard({ title, value, highlight }) {
   return (
     <div style={{
       padding: 20,
-      borderRadius: 10,
-      background: "#f5f5f5",
-      width: 150
+      borderRadius: 12,
+      background: highlight ? "#7f1d1d" : "#1e293b",
+      transition: "0.3s"
     }}>
-      <h4>{title}</h4>
-      <h2>{value || 0}</h2>
+      <div style={{ opacity: 0.7 }}>{title}</div>
+      <div style={{ fontSize: 24, fontWeight: "bold" }}>
+        {value}
+      </div>
     </div>
   );
 }
